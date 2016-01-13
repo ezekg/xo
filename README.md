@@ -1,7 +1,7 @@
-# xo
+# `xo`
 
 `xo` is a command line utility similar to `sed`, except it has one job: take an
-input string from `stdin` and format its matches. That's it. I built this so
+input string from `stdin` and format the matches. That's it. I built this so
 that I could read configuration files and use its contents to string
 together a new command.
 
@@ -33,5 +33,8 @@ should be simple and cannot contain a space or newline.
 
 ## Delimiters
 You may substitute `/` for any delimiter not found unescaped within your pattern
-or formatter. Please see [Go's regular expression documentation](https://golang.org/pkg/regexp/syntax/)
-for additional usage options.
+or formatter.
+
+## Regular expression features
+Please see [Go's regular expression documentation](https://golang.org/pkg/regexp/syntax/)
+for additional usage options and features.

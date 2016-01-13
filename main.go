@@ -1,7 +1,6 @@
 /*
 Command xo is a command line utility similar to `sed`, except it has one job: take an
-input string from `stdin` and format its matches. That's it. I built this so that I could
-read configuration files and use its contents to string together a new command.
+input string from `stdin` and format the matches.
 */
 package main
 
