@@ -16,7 +16,7 @@ Luke: [shocked] No. No! That's not true! That's impossible!
 
 and we wanted to do a little formatting, as if we're telling it as a story. Easy!
 ```bash
-cat starwars.txt | xo 'mis/^(\w+):(.*?\[(.*?)\].*?)?([^\n]+)/$1 said "$4" in a $3?:normal voice/'
+cat starwars.txt | xo 'mi/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said "$4" in a $3?:normal voice/'
 ```
 
 ## Syntax

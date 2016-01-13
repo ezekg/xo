@@ -24,8 +24,8 @@ func main() {
 	}
 
 	delimiter := string(arg[len(arg)-1])
-	pieces := delEmpty(strings.Split(arg, delimiter))
-	if len(pieces) <= 1 {
+	parts := delEmpty(strings.Split(arg, delimiter))
+	if len(parts) <= 1 {
 		throwError("No pattern or formatter specified")
 	}
 
@@ -35,13 +35,13 @@ func main() {
 		format  string
 	)
 
-	if len(pieces) > 2 {
-		mods = pieces[0]
-		pattern = pieces[1]
-		format = pieces[2]
+	if len(parts) > 2 {
+		mods = parts[0]
+		pattern = parts[1]
+		format = parts[2]
 	} else {
-		pattern = pieces[0]
-		format = pieces[1]
+		pattern = parts[0]
+		format = parts[1]
 	}
 
 	rx, err := regexp.Compile(fmt.Sprintf(`(?%s)%s`, mods, pattern))
@@ -59,48 +59,38 @@ func main() {
 		fallbacks = make(map[int]string)
 	)
 
-	for _, match := range matches {
-		var result string
+	for _, group := range matches {
+		result := format
 
-		for i, m := range match {
-			str := string(m)
+		for i, match := range group {
+			value := string(match)
 
-			// Store fallback values if key does not already exist
-			if _, ok := fallbacks[i]; !ok {
-				rxFallback, err := regexp.Compile(fmt.Sprintf(`\$%d\?:([^\s\n]+)`, i))
-				if err != nil {
-					throwError("Failed to parse default arguments", err.Error())
+			rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:([^\s\n]+)`, i))
+			if err != nil {
+				throwError("Failed to parse default arguments", err.Error())
+			}
+
+			fallback := rxFallback.FindStringSubmatch(result)
+			if len(fallback) > 1 {
+				// Store fallback values if key does not already exist
+				if _, ok := fallbacks[i]; !ok {
+					fallbacks[i] = string(fallback[2])
 				}
-
-				cond := rxFallback.FindStringSubmatch(format)
-				if len(cond) > 1 {
-					fallbacks[i] = string(cond[1])
-				}
+				result = rxFallback.ReplaceAllString(result, "$1")
 			}
 
 			// Set default for empty values
-			if str == "" {
-				str = fallbacks[i]
+			if value == "" {
+				value = fallbacks[i]
 			}
 
 			// Replace values
 			rxRepl, _ := regexp.Compile(fmt.Sprintf(`\$%d`, i))
-			if result == "" {
-				result = str
-			}
-			result = rxRepl.ReplaceAllString(result, format)
+			result = rxRepl.ReplaceAllString(result, value)
 		}
 
 		fmt.Printf("%s\n", result)
-		fmt.Println(fallbacks)
 	}
-
-	// rx, err := regexp.Compile("(?s)(.*?)\?:(.*?)")
-	// if err != nil {
-	// 	throwError("Invalid regular expression")
-	// }
-	//
-	// fmt.Print(result)
 }
 
 func delEmpty(strs []string) []string {
