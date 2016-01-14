@@ -32,8 +32,8 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldEqual(t, `echo 'abc' | xo '/(\w)(\w)(\w)(\w)?/$1$2$3$4?:$1/'`,
 		`abca
 `)
-	shouldEqual(t, `echo ',2,3' | xo '/^(\d)?,(\d),(\d)/$3,$2,$1?:$3/'`,
-		`3,2,
+	shouldEqual(t, `echo 'Howdy! My name is Woody.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'`,
+		`Howdy, Woody!
 `)
 	shouldExit(t, `echo '1' | xo '/^(\s)/$1/'`, 1)
 	shouldExit(t, `echo '1' | xo '/1/'`, 1)

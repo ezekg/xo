@@ -62,7 +62,7 @@ func main() {
 		for i, match := range group {
 			value := string(match)
 
-			rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:([^\s\n]+)`, i))
+			rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:([-_$A-za-z1-9]+)`, i))
 			if err != nil {
 				throw("Failed to parse default arguments", err.Error())
 			}
