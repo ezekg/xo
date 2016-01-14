@@ -106,6 +106,8 @@ func delEmpty(strs []string) []string {
 }
 
 func throwError(errs ...string) {
-	fmt.Println("%s\n", errs)
+	for _, err := range errs {
+		fmt.Printf("%s\n", err)
+	}
 	os.Exit(1)
 }
