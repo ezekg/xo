@@ -23,7 +23,7 @@ func main() {
 		throw("Nothing passed to stdin")
 	}
 
-	delimiter := string(arg[len(arg)-1])
+	delimiter := string(arg[0])
 	parts := compact(strings.Split(arg, delimiter))
 	if len(parts) <= 1 {
 		throw("No pattern or formatter specified")
@@ -35,13 +35,10 @@ func main() {
 		format  string
 	)
 
+	pattern = parts[0]
+	format = parts[1]
 	if len(parts) > 2 {
-		flags = parts[0]
-		pattern = parts[1]
-		format = parts[2]
-	} else {
-		pattern = parts[0]
-		format = parts[1]
+		flags = parts[2]
 	}
 
 	rx, err := regexp.Compile(fmt.Sprintf(`(?%s)%s`, flags, pattern))
@@ -108,7 +105,7 @@ func compact(strs []string) []string {
 
 // help prints how to use this whole `xo` thing.
 func help(errs ...string) {
-	fmt.Printf("%s\n", "Usage: xo '[flags]/<pattern>/<formatter>/'")
+	fmt.Printf("%s\n", "Usage: xo '/<pattern>/<formatter>/[flags]'")
 	os.Exit(0)
 }
 

@@ -16,8 +16,7 @@ go get github.com/ezekg/xo
 piped output (`echo 'hello' | xo ...`) or what have you. There's no flags, and no
 additional arguments. Simple and easy to use.
 ```
-xo 'flags/pattern/formatter/'
-xo '/pattern/formatter/'
+xo '/<pattern>/<formatter>/[flags]'
 ```
 
 ## Examples
@@ -31,7 +30,7 @@ Luke: [shocked] No. No! That's not true! That's impossible!
 
 and we wanted to do a little formatting, as if we're telling it as a story. Easy!
 ```bash
-cat starwars.txt | xo 'mi/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in a $3?:normal voice./'
+cat starwars.txt | xo '/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in a $3?:normal voice./mi'
 # =>
 #   Vader said, "If only you knew the power of the Dark Side. Obi-Wan never told you what happened to your father." in a normal voice.
 #   Luke said, "He told me enough! He told me you killed him!" in a normal voice.
@@ -67,12 +66,12 @@ worked on. Our day to day requires us to SSH into these projects a lot, and havi
 to read the config file for the IP address of the server, the SSH user, as well as
 any potential port number gets pretty repetitive. Let's automate!
 ```bash
-cat servers.yml | xo 'mis/.*?(production):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/'
+cat servers.yml | xo '/.*?(production):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/mis'
 # =>
 #  user-1@192.168.1.1 -p 1234
 
 # Now let's actually use the output,
-ssh $(cat servers.yml | xo 'mis/.*?(staging):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/')
+ssh $(cat servers.yml | xo '/.*?(staging):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/mis')
 # =>
 #  ssh user-2@192.168.1.1 -p 22
 ```
