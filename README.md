@@ -42,6 +42,10 @@ parenthesis. Submatch `$0` is the match of the entire expression, submatch `$1`
 the match of the first parenthesized subexpression, and so on. These capturing
 groups are what `xo` works with.
 
+What about the question mark? The question mark makes the preceding token in the
+regular expression optional. `colou?r` matches both `colour` and `color`. The
+question mark is called a _quantifier_.
+
 With that, what if the input string _forgot_ to specify a greeting, but we, desiring
 to be polite, still wanted to say "Hello"? Well, that sounds like a great job for
 a [fallback value](#fallback-values)! Let's update the example a little bit,
