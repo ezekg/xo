@@ -28,7 +28,38 @@ xo '/<pattern>/<formatter>/[flags]'
 ```
 
 ## Examples
-Suppose we had a text file called `starwars.txt` containing some Star Wars quotes,
+Let's start off a little simple, and then we'll ramp it up and get crazy. `xo`,
+in its simplest form, does things like this,
+```bash
+echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
+# =>
+#  Hi, Bob!
+```
+
+With that, what if the input _forgot_ to specify a greeting, but we still want
+to say "Hello"? Well, that sounds like a great job for [fallback value](#fallback-values)!
+Let's update the example a little bit,
+```bash
+echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1?:Hello, $2!/i'
+# =>
+#  Hi, Bob!
+
+echo 'My name is Sara.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'
+# =>
+#  Hello, Sara!
+```
+
+As you can see, we've taken the matches and created a new string out of them. We
+also supplied a [fallback value](#fallback-values) for the second match (`$2`)
+using the ternary `?:` operator that gets used if no match is found.
+
+When you create a regular expression, wrapping a subexpression in parenthesis `(...)`
+creates a new _capturing group_, numbered from left to right in order of opening
+parenthesis. Submatch `$0` is the match of the entire expression, submatch `$1`
+the match of the first parenthesized subexpression, and so on. These capturing
+groups are what `xo` works with.
+
+Now, suppose we had a text file called `starwars.txt` containing some Star Wars quotes,
 ```
 Vader: If only you knew the power of the Dark Side. Obi-Wan never told you what happened to your father.
 Luke: He told me enough! He told me you killed him!
@@ -45,16 +76,6 @@ cat starwars.txt | xo '/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in a 
 #   Vader said, "No, I am your father." in a normal voice.
 #   Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 ```
-
-As you can see, we've taken the matches and created a new string out of them. We
-also supplied a [fallback value](#fallback-values) for the third match (`$3`) using
-the `?:` operator that gets used if no match is found.
-
-When you create a regular expression, wrapping a subexpression in parenthesis `(...)`
-creates a new _capturing group_, numbered from left to right in order of opening
-parenthesis. Submatch `$0` is the match of the entire expression, submatch `$1`
-the match of the first parenthesized subexpression, and so on. These capturing
-groups are what `xo` works with.
 
 Okay, okay. Let's move on to something a little more useful. Suppose we had a
 configuration file called `servers.yml` containing some project information.
@@ -99,8 +120,8 @@ shh production
 ### Fallback values
 You may specify fallback values for matches using `$n?:value`, where `n` is the
 index that you want to assign the fallback value to. The fallback value should
-be simple and cannot contain a space or newline. It may contain other indices,
-in descending order e.g. `$2?:$1`, not `$1?:$2`.
+be simple and can only contain letters, numbers, dashes and underscores; although,
+it may contain other indices, in descending order e.g. `$2?:$1`, not `$1?:$2`.
 
 ### Delimiters
 You may substitute `/` for any delimiter not found within your pattern or formatter.
