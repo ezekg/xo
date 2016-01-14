@@ -44,7 +44,9 @@ groups are what `xo` works with.
 
 What about the question mark? The question mark makes the preceding token in the
 regular expression optional. `colou?r` matches both `colour` and `color`. The
-question mark is called a _quantifier_.
+question mark is called a _quantifier_. You can make several tokens optional by
+grouping them together using parentheses, and placing the question mark after
+the closing parenthesis, e.g. `Nov(ember)?` matches `Nov` and `November`.
 
 With that, what if the input string _forgot_ to specify a greeting, but we, desiring
 to be polite, still wanted to say "Hello"? Well, that sounds like a great job for
