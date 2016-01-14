@@ -2,7 +2,13 @@
 [![Travis](https://img.shields.io/travis/ezekg/xo.svg?style=flat-square)](https://travis-ci.org/ezekg/xo)
 
 `xo` is a command line utility that takes an input string from stdin and formats
-the regexp matches.
+the regexp matches. You might immediately think that this is a knockoff of `sed`,
+but `xo` has only one job: to format matches. It does not handle search/replace,
+because there are better tools for that, and again, it _only cares about matches_.
+Unlike `sed`, it comes with the full power of [Go's regular expression syntax](https://golang.org/pkg/regexp/syntax/),
+meaning it can handle multiline patterns and any other flag you can throw at it.
+
+Enjoy.
 
 ## Installation
 To install `xo`, please use `go get`. If you don't have Go installed, [get it here](https://golang.org/dl/).
