@@ -34,9 +34,9 @@ parenthesis. Submatch `$0` is the match of the entire expression, submatch `$1`
 the match of the first parenthesized subexpression, and so on. These capturing
 groups are what `xo` works with.
 
-Okay, okay. Lets do something a little more useful. Now suppose we had a configuration
-file called `servers.yml` containing some project information. Maybe it looks like
-this,
+Okay, okay. Let's move on to something a little more useful. Suppose we had a
+configuration file called `servers.yml` containing some project information.
+Maybe it looks like this,
 ```yml
 stages:
   production:
