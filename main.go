@@ -14,7 +14,7 @@ import (
 
 func main() {
 	if len(os.Args) == 1 {
-		throw("No arguments were passed")
+		help()
 	}
 
 	arg := os.Args[1]
@@ -93,6 +93,7 @@ func main() {
 	}
 }
 
+// compact removes empty string values from an array of strings.
 func compact(strs []string) []string {
 	var result []string
 
@@ -105,6 +106,13 @@ func compact(strs []string) []string {
 	return result
 }
 
+// help prints how to use this whole `xo` thing.
+func help(errs ...string) {
+	fmt.Printf("%s\n", "Usage: xo '[modifiers]/<pattern>/<formatter>/'")
+	os.Exit(0)
+}
+
+// throw prints a bunch of strings and then exits with a non-zero exit code.
 func throw(errs ...string) {
 	for _, err := range errs {
 		fmt.Printf("%s\n", err)
