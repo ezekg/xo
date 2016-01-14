@@ -1,6 +1,6 @@
 /*
-Command xo is a command line utility similar to `sed`, except it has one job: take an
-input string from `stdin` and format the matches.
+Command xo is a command line utility that takes an input string from stdin and
+formats the regexp matches.
 */
 package main
 

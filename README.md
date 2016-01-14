@@ -1,10 +1,8 @@
 # `xo`
 [![Travis](https://img.shields.io/travis/ezekg/xo.svg?style=flat-square)](https://travis-ci.org/ezekg/xo)
 
-`xo` is a command line utility similar to `sed`, except it has one job: take an
-input string from `stdin` and format the matches. That's it. I built this so
-that I could read configuration files and use its contents to string
-together a new command.
+`xo` is a command line utility that takes an input string from stdin and formats
+the regexp matches.
 
 ## Installation
 To install `xo`, please use `go get`. If you don't have Go installed, [get it here](https://golang.org/dl/). If you would like to grab a precompiled binary, head over to the [releases](https://github.com/ezekg/xo/releases) page. The precompiled `xo` binaries have no external dependencies.
