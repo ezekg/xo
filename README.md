@@ -84,9 +84,9 @@ xo '/pattern/formatter/'
 ```
 
 ### Fallback values
-You may specify fallback values for match indexes using `$N?:value`, where `N`
-is the index that you want to assign the fallback value to. The fallback value
-should be simple and cannot contain a space or newline.
+You may specify fallback values for matches using `$N?:value`, where `N` is the
+index that you want to assign the fallback value to. The fallback value should
+be simple and cannot contain a space or newline.
 
 ### Delimiters
 You may substitute `/` for any delimiter not found within your pattern or formatter.
