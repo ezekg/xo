@@ -36,6 +36,12 @@ echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
 #  Hi, Bob!
 ```
 
+When you create a regular expression, wrapping a subexpression in parenthesis `(...)`
+creates a new _capturing group_, numbered from left to right in order of opening
+parenthesis. Submatch `$0` is the match of the entire expression, submatch `$1`
+the match of the first parenthesized subexpression, and so on. These capturing
+groups are what `xo` works with.
+
 With that, what if the input string _forgot_ to specify a greeting, but we, desiring
 to be polite, still wanted to say "Hello"? Well, that sounds like a great job for
 a [fallback value](#fallback-values)! Let's update the example a little bit,
@@ -52,12 +58,6 @@ echo 'My name is Sara.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'
 As you can see, we've taken the matches and created a new string out of them. We
 also supplied a [fallback value](#fallback-values) for the second match (`$2`)
 using the ternary `?:` operator that gets used if no match is found.
-
-When you create a regular expression, wrapping a subexpression in parenthesis `(...)`
-creates a new _capturing group_, numbered from left to right in order of opening
-parenthesis. Submatch `$0` is the match of the entire expression, submatch `$1`
-the match of the first parenthesized subexpression, and so on. These capturing
-groups are what `xo` works with.
 
 Now, suppose we had a text file called `starwars.txt` containing some Star Wars quotes,
 ```
