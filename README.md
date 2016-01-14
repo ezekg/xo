@@ -24,6 +24,16 @@ cat starwars.txt | xo 'mi/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in 
 #   Luke said "No. No! That's not true! That's impossible!" in a shocked voice
 ```
 
+As you can see, we've taken the matches and created a new string out of them. We
+also supplied a [fallback](#fallback-values) for the third match (`$3`) using the
+`?:` operator that gets used if no match is found.
+
+When you create a regular expression, wrapping a subexpression in parenthesis `(...)`
+creates a new _capturing group_, numbered from left to right in order of opening
+parenthesis. Submatch `$0` is the match of the entire expression, submatch `$1`
+the match of the first parenthesized subexpression, and so on. These capturing
+groups are what `xo` works with.
+
 Okay, okay. Lets do something a little more useful. Now suppose we had a configuration
 file called `servers.yml` containing some project information. Maybe it looks like
 this,
