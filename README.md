@@ -94,7 +94,7 @@ shh production
 You may specify fallback values for matches using `$n?:value`, where `n` is the
 index that you want to assign the fallback value to. The fallback value should
 be simple and cannot contain a space or newline. It may contain other indices,
-e.g. `$2?:$1` or `$1?:$2`.
+in descending order e.g. `$2?:$1`, not `$1?:$2`.
 
 ### Delimiters
 You may substitute `/` for any delimiter not found within your pattern or formatter.

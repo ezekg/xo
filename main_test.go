@@ -27,6 +27,9 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
   testCommand(t, `echo 'abc' | xo '/(\w)(\w)(\w)(\w)?/$1$2$3$4?:$1/'`,
     `abca
 `)
+  testCommand(t, `echo ',2,3' | xo '/^(\d)?,(\d),(\d)/$3,$2,$1?:$3/'`,
+    `3,2,
+`)
 }
 
 func testCommand(t *testing.T, cmd string, expected string) {
