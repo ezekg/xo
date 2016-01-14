@@ -35,6 +35,9 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldEqual(t, `echo 'Howdy! My name is Woody.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'`,
 		`Howdy, Woody!
 `)
+	shouldEqual(t, `echo 'My name is Jessie.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'`,
+		`Hello, Jessie!
+`)
 	shouldExit(t, `echo '1' | xo '/^(\s)/$1/'`, 1)
 	shouldExit(t, `echo '1' | xo '/1/'`, 1)
 	shouldExit(t, `echo '1' | xo ///`, 1)
