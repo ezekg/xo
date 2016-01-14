@@ -7,6 +7,13 @@ input string from `stdin` and format the matches. That's it. I built this so
 that I could read configuration files and use its contents to string
 together a new command.
 
+## Installation
+To install `xo`, please use `go get`. If you don't have Go installed, [get it here](https://golang.org/dl/). If you would like to grab a precompiled binary, head over to the [releases](https://github.com/ezekg/xo/releases) page. The precompiled `xo` binaries have no external dependencies.
+
+```
+go get github.com/ezekg/xo
+```
+
 ## Usage
 `xo` accepts the following syntax; all you have to do is feed it some `stdin` via
 piped output (`echo 'hello' | xo ...`) or what have you. There's no flags, and no
