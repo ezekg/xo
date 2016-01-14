@@ -6,6 +6,15 @@ that I could read configuration files and use its contents to string
 together a new command.
 
 ## Usage
+`xo` accepts the following syntax; all you have to do is feed it some `stdin` via
+piped output (`echo 'hello' | xo ...`) or what have you. There's no flags, and no
+additional arguments. Simple and easy to use.
+```
+xo 'modifiers/pattern/formatter/'
+xo '/pattern/formatter/'
+```
+
+## Examples
 Suppose we had a text file called `starwars.txt` containing some Star Wars quotes,
 ```
 Vader: If only you knew the power of the Dark Side. Obi-Wan never told you what happened to your father.
@@ -72,15 +81,6 @@ function gosh() {
 gosh production
 # =>
 #  ssh user-1@192.168.1.1 -p 1234
-```
-
-## Usage
-`xo` accepts the following syntax; all you have to do is feed it some `stdin` via
-piped output (`echo 'hello' | xo ...`) or what have you. There's no flags, and no
-additional arguments. Simple and easy to use.
-```
-xo 'modifiers/pattern/formatter/'
-xo '/pattern/formatter/'
 ```
 
 ### Fallback values
