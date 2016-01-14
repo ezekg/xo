@@ -1,6 +1,5 @@
 # `xo`
 [![Travis](https://img.shields.io/travis/ezekg/xo.svg?style=flat-square)](https://travis-ci.org/ezekg/xo)
-[![Code Climate](https://img.shields.io/codeclimate/github/ezekg/xo.svg?style=flat-square)](https://codeclimate.com/github/ezekg/xo)
 
 `xo` is a command line utility similar to `sed`, except it has one job: take an
 input string from `stdin` and format the matches. That's it. I built this so
