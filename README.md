@@ -18,10 +18,10 @@ and we wanted to do a little formatting, as if we're telling it as a story. Easy
 ```bash
 cat starwars.txt | xo 'mi/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in a $3?:normal voice./'
 # =>
-#   Vader said "If only you knew the power of the Dark Side. Obi-Wan never told you what happened to your father." in a normal voice
-#   Luke said "He told me enough! He told me you killed him!" in a normal voice
-#   Vader said "No, I am your father." in a normal voice
-#   Luke said "No. No! That's not true! That's impossible!" in a shocked voice
+#   Vader said, "If only you knew the power of the Dark Side. Obi-Wan never told you what happened to your father." in a normal voice.
+#   Luke said, "He told me enough! He told me you killed him!" in a normal voice.
+#   Vader said, "No, I am your father." in a normal voice.
+#   Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 ```
 
 As you can see, we've taken the matches and created a new string out of them. We
