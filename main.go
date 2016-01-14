@@ -14,19 +14,19 @@ import (
 
 func main() {
 	if len(os.Args) == 1 {
-		throwError("No arguments were passed")
+		throw("No arguments were passed")
 	}
 
 	arg := os.Args[1]
 	stat, _ := os.Stdin.Stat()
 	if (stat.Mode() & os.ModeCharDevice) != 0 {
-		throwError("Nothing passed to stdin")
+		throw("Nothing passed to stdin")
 	}
 
 	delimiter := string(arg[len(arg)-1])
-	parts := delEmpty(strings.Split(arg, delimiter))
+	parts := compact(strings.Split(arg, delimiter))
 	if len(parts) <= 1 {
-		throwError("No pattern or formatter specified")
+		throw("No pattern or formatter specified")
 	}
 
 	var (
@@ -46,13 +46,13 @@ func main() {
 
 	rx, err := regexp.Compile(fmt.Sprintf(`(?%s)%s`, mods, pattern))
 	if err != nil {
-		throwError("Invalid regular expression", err.Error())
+		throw("Invalid regular expression", err.Error())
 	}
 
 	stdin, _ := ioutil.ReadAll(os.Stdin)
 	matches := rx.FindAllSubmatch(stdin, -1)
 	if matches == nil {
-		throwError("No matches found")
+		throw("No matches found")
 	}
 
 	var (
@@ -67,7 +67,7 @@ func main() {
 
 			rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:([^\s\n]+)`, i))
 			if err != nil {
-				throwError("Failed to parse default arguments", err.Error())
+				throw("Failed to parse default arguments", err.Error())
 			}
 
 			fallback := rxFallback.FindStringSubmatch(result)
@@ -93,7 +93,7 @@ func main() {
 	}
 }
 
-func delEmpty(strs []string) []string {
+func compact(strs []string) []string {
 	var result []string
 
 	for _, str := range strs {
@@ -105,7 +105,7 @@ func delEmpty(strs []string) []string {
 	return result
 }
 
-func throwError(errs ...string) {
+func throw(errs ...string) {
 	for _, err := range errs {
 		fmt.Printf("%s\n", err)
 	}
