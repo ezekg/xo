@@ -49,8 +49,8 @@ func main() {
 		throw("Invalid regular expression", err.Error())
 	}
 
-	stdin, _ := ioutil.ReadAll(os.Stdin)
-	matches := rx.FindAllSubmatch(stdin, -1)
+	in, _ := ioutil.ReadAll(os.Stdin)
+	matches := rx.FindAllSubmatch(in, -1)
 	if matches == nil {
 		throw("No matches found")
 	}
