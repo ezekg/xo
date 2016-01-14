@@ -38,6 +38,9 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldEqual(t, `echo 'My name is Jessie.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'`,
 		`Hello, Jessie!
 `)
+	shouldEqual(t, `cat fixtures/romans.txt | xo '/\d\s(\w+).*?to all that are in (\w+),.*?24 \[the (grace)? of ([\w\s]{21})/Romans is a letter written by $1 addressed to the people of $2 about the $3?:gospel of $4./mis'`,
+		`Romans is a letter written by Paul addressed to the people of Rome about the grace of our Lord Jesus Christ.
+`)
 	shouldExit(t, `echo '1' | xo '/^(\s)/$1/'`, 1)
 	shouldExit(t, `echo '1' | xo '/1/'`, 1)
 	shouldExit(t, `echo '1' | xo ///`, 1)
