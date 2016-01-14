@@ -65,7 +65,8 @@ As you can see, we've taken the matches and created a new string out of them. We
 also supplied a [fallback value](#fallback-values) for the second match (`$2`)
 that gets used if no match is found, using the ternary `?:` operator.
 
-Now, suppose we had a text file called `starwars.txt` containing some Star Wars quotes,
+Now that we have the basics of `xo` out of the way, let's pick up the pace a little
+bit. Suppose we had a text file called `starwars.txt` containing some Star Wars quotes,
 ```
 Vader: If only you knew the power of the Dark Side. Obi-Wan never told you what happened to your father.
 Luke: He told me enough! He told me you killed him!
