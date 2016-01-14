@@ -80,12 +80,12 @@ ssh $(cat servers.yml | xo '/.*?(staging):\s*server:\s+([^:\n]+):?(\d+)?.*?user:
 
 Set that up as a nice `~/.bashrc` function, and then you're good to go:
 ```bash
-function gosh() {
+function shh() {
   ssh $(cat servers.yml | xo "/.*?($1):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/\$4@\$2 -p \$3?:22/mis")
 }
 
 # And then we can use it like,
-gosh production
+shh production
 # =>
 #  ssh user-1@192.168.1.1 -p 1234
 ```
