@@ -76,7 +76,7 @@ ssh $(cat servers.yml | xo '/.*?(staging):\s*server:\s+([^:\n]+):?(\d+)?.*?user:
 #  ssh user-2@192.168.1.1 -p 22
 ```
 
-Set that up as a nice `.bashrc` function, and then you're good to go:
+Set that up as a nice `~/.bashrc` function, and then you're good to go:
 ```bash
 function gosh() {
   ssh $(cat servers.yml | xo "/.*?($1):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/\$4@\$2 -p \$3?:22/mis")
