@@ -79,8 +79,7 @@ is the index that you want to assign the fallback value to. The fallback value
 should be simple and cannot contain a space or newline.
 
 ### Delimiters
-You may substitute `/` for any delimiter not found unescaped within your pattern
-or formatter.
+You may substitute `/` for any delimiter not found within your pattern or formatter.
 
 ### Regular expression features
 Please see [Go's regular expression documentation](https://golang.org/pkg/regexp/syntax/)
