@@ -34,8 +34,8 @@ cat starwars.txt | xo 'mi/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in 
 ```
 
 As you can see, we've taken the matches and created a new string out of them. We
-also supplied a [fallback](#fallback-values) for the third match (`$3`) using the
-`?:` operator that gets used if no match is found.
+also supplied a [fallback value](#fallback-values) for the third match (`$3`) using
+the `?:` operator that gets used if no match is found.
 
 When you create a regular expression, wrapping a subexpression in parenthesis `(...)`
 creates a new _capturing group_, numbered from left to right in order of opening
