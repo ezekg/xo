@@ -36,7 +36,7 @@ echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
 #  Hi, Bob!
 ```
 
-With that, what if the input string _forgot_ to specify a greeting, but we, wanting
+With that, what if the input string _forgot_ to specify a greeting, but we, desiring
 to be polite, still wanted to say "Hello"? Well, that sounds like a great job for
 a [fallback value](#fallback-values)! Let's update the example a little bit,
 ```bash
