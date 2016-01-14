@@ -42,9 +42,11 @@ worked on. Our day to day requires us to SSH into these projects a lot, and havi
 to read the config file for the IP address of the server, the SSH user, as well as
 any potential port number gets pretty repetitive. Let's automate!
 ```bash
-cat servers.yml | xo 'mis/.*?(production):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/\$4@\$2 -p \$3?:22/'
+cat servers.yml | xo 'mis/.*?(production):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/'
 # =>
 #  user-1@192.168.1.1 -p 1234
+
+# Now let's actually use the output,
 ssh $(cat servers.yml | xo 'mis/.*?(staging):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/')
 # =>
 #  ssh user-2@192.168.1.1 -p 22
@@ -55,7 +57,8 @@ Set that up as a nice `.bashrc` function, and then you're good to go:
 function gosh() {
   ssh $(cat servers.yml | xo "mis/.*?($1):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/\$4@\$2 -p \$3?:22/")
 }
-# And then use like,
+
+# And then we can use it like,
 gosh production
 # =>
 #  ssh user-1@192.168.1.1 -p 1234
