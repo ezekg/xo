@@ -21,6 +21,9 @@ Luke said, "He told me enough! He told me you killed him!" in a normal voice.
 Vader said, "No, I am your father." in a normal voice.
 Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 `)
+testCommand(t, `echo '123' | xo 'i/(\d)(\d)(\d)(\d)?(\d)?/$1, $2, $3, 4?:FOUR $5?:FIVE/'`,
+  `1, 2, 3, 4?:FOUR FIVE
+`)
 }
 
 func testCommand(t *testing.T, cmd string, expected string) {
