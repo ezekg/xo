@@ -65,8 +65,9 @@ gosh production
 ```
 
 ## Usage
-`xo` accepts the following syntax, all you have to do is feed it some `stdin` via
-piped output (`echo 'hello' | xo ...`) or what have you.
+`xo` accepts the following syntax; all you have to do is feed it some `stdin` via
+piped output (`echo 'hello' | xo ...`) or what have you. There's no flags, and no
+additional arguments. Simple and easy to use.
 ```
 xo 'modifiers/pattern/formatter/'
 xo '/pattern/formatter/'
