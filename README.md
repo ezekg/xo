@@ -5,7 +5,9 @@
 the regexp matches.
 
 ## Installation
-To install `xo`, please use `go get`. If you don't have Go installed, [get it here](https://golang.org/dl/). If you would like to grab a precompiled binary, head over to the [releases](https://github.com/ezekg/xo/releases) page. The precompiled `xo` binaries have no external dependencies.
+To install `xo`, please use `go get`. If you don't have Go installed, [get it here](https://golang.org/dl/).
+If you would like to grab a precompiled binary, head over to the [releases](https://github.com/ezekg/xo/releases)
+page. The precompiled `xo` binaries have no external dependencies.
 
 ```
 go get github.com/ezekg/xo
