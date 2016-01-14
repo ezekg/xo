@@ -30,13 +30,13 @@ func main() {
 	}
 
 	var (
-		mods    string
+		flags   string
 		pattern string
 		format  string
 	)
 
 	if len(parts) > 2 {
-		mods = parts[0]
+		flags = parts[0]
 		pattern = parts[1]
 		format = parts[2]
 	} else {
@@ -44,7 +44,7 @@ func main() {
 		format = parts[1]
 	}
 
-	rx, err := regexp.Compile(fmt.Sprintf(`(?%s)%s`, mods, pattern))
+	rx, err := regexp.Compile(fmt.Sprintf(`(?%s)%s`, flags, pattern))
 	if err != nil {
 		throw("Invalid regular expression", err.Error())
 	}
@@ -108,7 +108,7 @@ func compact(strs []string) []string {
 
 // help prints how to use this whole `xo` thing.
 func help(errs ...string) {
-	fmt.Printf("%s\n", "Usage: xo '[modifiers]/<pattern>/<formatter>/'")
+	fmt.Printf("%s\n", "Usage: xo '[flags]/<pattern>/<formatter>/'")
 	os.Exit(0)
 }
 

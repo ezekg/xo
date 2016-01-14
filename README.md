@@ -16,7 +16,7 @@ go get github.com/ezekg/xo
 piped output (`echo 'hello' | xo ...`) or what have you. There's no flags, and no
 additional arguments. Simple and easy to use.
 ```
-xo 'modifiers/pattern/formatter/'
+xo 'flags/pattern/formatter/'
 xo '/pattern/formatter/'
 ```
 
