@@ -1,0 +1,7 @@
+stages:
+  production:
+    server: 192.168.1.1:1234
+    user: user-1
+  staging:
+    server: 192.168.1.1
+    user: user-2
