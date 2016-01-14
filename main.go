@@ -104,7 +104,7 @@ func compact(strs []string) []string {
 }
 
 // help prints how to use this whole `xo` thing.
-func help(errs ...string) {
+func help() {
 	fmt.Printf("%s\n", "Usage: xo '/<pattern>/<formatter>/[flags]'")
 	os.Exit(0)
 }
