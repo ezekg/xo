@@ -57,7 +57,7 @@ echo 'My name is Sara.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'
 
 As you can see, we've taken the matches and created a new string out of them. We
 also supplied a [fallback value](#fallback-values) for the second match (`$2`)
-using the ternary `?:` operator that gets used if no match is found.
+that gets used if no match is found, using the ternary `?:` operator.
 
 Now, suppose we had a text file called `starwars.txt` containing some Star Wars quotes,
 ```
