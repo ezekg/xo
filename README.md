@@ -125,10 +125,10 @@ shh production
 ```
 
 ### Fallback values
-You may specify fallback values for matches using `$n?:value`, where `n` is the
-index that you want to assign the fallback value to. The fallback value should
-be simple and can only contain letters, numbers, dashes and underscores; although,
-it may contain other indices, in descending order e.g. `$2?:$1`, not `$1?:$2`.
+You may specify fallback values for matches using the ternary operator, `$n?:value`,
+where `n` is the index that you want to assign the fallback value to. The fallback
+value should be simple and can only contain letters, numbers, dashes and underscores;
+although, it may contain other indices, in descending order e.g. `$2?:$1`, not `$1?:$2`.
 
 ### Delimiters
 You may substitute `/` for any delimiter not found within your pattern or formatter,
