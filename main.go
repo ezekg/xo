@@ -28,6 +28,9 @@ func main() {
 	if len(parts) <= 1 {
 		throw("No pattern or formatter specified")
 	}
+	if len(parts) > 3 {
+		throw("Extra delimiter detected (maybe try one other than `/`)")
+	}
 
 	var (
 		flags   string
