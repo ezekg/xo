@@ -11,7 +11,7 @@ func TestMain(t *testing.T) {
 	shouldEqual(t, `xo`,
 		`Usage: xo '/<pattern>/<formatter>/[flags]'
 `)
-	shouldEqual(t, `echo 'Hello there!' | xo '/hello(.*)/Hi$1/i'`,
+	shouldEqual(t, `echo 'Hello there!' | xo '~hello(.*)~Hi$1~i'`,
 		`Hi there!
 `)
 	shouldEqual(t, `echo 'Hello! - Bob' | xo '/(hello).*?-.*?(\w+)/Why $1, $2!/i'`,
@@ -29,13 +29,13 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldEqual(t, `echo '123' | xo '/(\d)(\d)(\d)(\d)?(\d)?/$1, $2, $3, 4?:FOUR $5?:FIVE/'`,
 		`1, 2, 3, 4?:FOUR FIVE
 `)
-	shouldEqual(t, `echo 'abc' | xo '/(\w)(\w)(\w)(\w)?/$1$2$3$4?:$1/'`,
+	shouldEqual(t, `echo 'abc' | xo '%(\w)(\w)(\w)(\w)?%$1$2$3$4?:$1%'`,
 		`abca
 `)
 	shouldEqual(t, `echo 'Howdy! My name is Woody.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'`,
 		`Howdy, Woody!
 `)
-	shouldEqual(t, `echo 'My name is Jessie.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'`,
+	shouldEqual(t, `echo 'My name is Jessie.' | xo '|^((\w+)! )?my name is (\w+)|$2?:Hello, $3!|i'`,
 		`Hello, Jessie!
 `)
 	shouldEqual(t, `cat fixtures/romans.txt | xo '/\d\s(\w+).*?to all that are in (\w+),.*?24 \[the (grace)? of ([\w\s]{21})/Romans is a letter written by $1 addressed to the people of $2 about the $3?:gospel of $4./mis'`,
@@ -44,6 +44,7 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldExit(t, `echo '1' | xo '/^(\s)/$1/'`, 1)
 	shouldExit(t, `echo '1' | xo '/1/'`, 1)
 	shouldExit(t, `echo '1' | xo ///`, 1)
+	shouldExit(t, `echo 'hi' | xo '/(hi)/te\/st/mi'`, 1)
 	shouldExit(t, `xo ///`, 1)
 }
 

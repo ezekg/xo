@@ -46,7 +46,7 @@ func main() {
 
 	rx, err := regexp.Compile(fmt.Sprintf(`(?%s)%s`, flags, pattern))
 	if err != nil {
-		throw("Invalid regular expression", err.Error())
+		throw("Invalid regular expression")
 	}
 
 	in, _ := ioutil.ReadAll(os.Stdin)
@@ -67,7 +67,7 @@ func main() {
 
 			rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:([-_$A-za-z1-9]+)`, i))
 			if err != nil {
-				throw("Failed to parse default arguments", err.Error())
+				throw("Failed to parse default arguments")
 			}
 
 			fallback := rxFallback.FindStringSubmatch(result)
