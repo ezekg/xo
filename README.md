@@ -131,7 +131,8 @@ be simple and can only contain letters, numbers, dashes and underscores; althoug
 it may contain other indices, in descending order e.g. `$2?:$1`, not `$1?:$2`.
 
 ### Delimiters
-You may substitute `/` for any delimiter not found within your pattern or formatter.
+You may substitute `/` for any delimiter not found within your pattern or formatter,
+even if it is escaped (pull requests are welcome to fix this).
 
 ### Regular expression features
 Please see [Go's regular expression documentation](https://golang.org/pkg/regexp/syntax/)
