@@ -36,6 +36,15 @@ echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
 #  Hi, Bob!
 ```
 
+Here's a quick breakdown of what each piece of the puzzle is,
+```bash
+echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
+^                        ^       ^^                       ^ ^     ^ ^
+|________________________|       ||_______________________| |_____| |
+            |                    + Delimiter |                 |    + Flag
+            + Piped output                   + Pattern         + Formatter
+```
+
 When you create a regular expression, wrapping a subexpression in parenthesis `(...)`
 creates a new _capturing group_, numbered from left to right in order of opening
 parenthesis. Submatch `$0` is the match of the entire expression, submatch `$1`
@@ -47,15 +56,6 @@ regular expression optional. `colou?r` matches both `colour` and `color`. You ca
 make several tokens optional by _grouping_ them together using parentheses, and
 placing the question mark after the closing parenthesis, e.g. `Nov(ember)?`
 matches `Nov` and `November`.
-
-Here's a quick breakdown of what each piece of the puzzle is,
-```bash
-echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
-^                        ^       ^^                       ^ ^     ^ ^
-|________________________|       ||_______________________| |_____| |
-            |                    + Delimiter |                 |    + Flag
-            + Piped output                   + Pattern         + Formatter
-```
 
 With that, what if the input string _forgot_ to specify a greeting, but we, desiring
 to be polite, still wanted to say "Hello"? Well, that sounds like a great job for
