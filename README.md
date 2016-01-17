@@ -31,18 +31,18 @@ xo '/<pattern>/<formatter>/[flags]'
 Let's start off a little simple, and then we'll ramp it up and get crazy. `xo`,
 in its simplest form, does things like this,
 ```bash
-echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
+echo 'Hello! My name is C3PO, human cyborg relations.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
 # =>
-#  Hi, Bob!
+#  Hello, C3PO!
 ```
 
 Here's a quick breakdown of what each piece of the puzzle is,
 ```bash
-echo 'Hi! My name is Bob.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
-^                        ^       ^^                       ^ ^     ^ ^
-|________________________|       ||_______________________| |_____| |
-            |                    + Delimiter |                 |    + Flag
-            + Piped output                   + Pattern         + Formatter
+echo 'Hello! My name is C3PO.' | xo '/^(\w+)?! my name is (\w+)/$1, $2!/i'
+^                              ^     ^^                       ^ ^     ^ ^
+|______________________________|     ||_______________________| |_____| |
+                |                    + Delimiter |                 |    + Flag
+                + Piped output                   + Pattern         + Formatter
 ```
 
 When you create a regular expression, wrapping a subexpression in parenthesis `(...)`
@@ -61,13 +61,13 @@ With that, what if the input string _forgot_ to specify a greeting, but we, desi
 to be polite, still wanted to say "Hello"? Well, that sounds like a great job for
 a [fallback value](#fallback-values)! Let's update the example a little bit,
 ```bash
-echo 'Hi! My name is Bob.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'
+echo 'Hello! My name is C3PO.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Greetings, $3!/i'
 # =>
-#  Hi, Bob!
+#  Hello, C3PO!
 
-echo 'My name is Sara.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'
+echo 'My name is Chewbacca, uuuuuur ahhhhhrrr uhrrr ahhhrrr aaargh.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Greetings, $3!/i'
 # =>
-#  Hello, Sara!
+#  Greetings, Chewbacca!
 ```
 
 As you can see, we've taken the matches and created a new string out of them. We

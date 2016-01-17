@@ -14,8 +14,8 @@ func TestMain(t *testing.T) {
 	shouldEqual(t, `echo 'Hello there!' | xo '~hello(.*)~Hi$1~i'`,
 		`Hi there!
 `)
-	shouldEqual(t, `echo 'Hello! - Bob' | xo '/(hello).*?-.*?(\w+)/Why $1, $2!/i'`,
-		`Why Hello, Bob!
+	shouldEqual(t, `echo 'Hello! - Luke' | xo '/(hello).*?-.*?(\w+)/Why $1, $2!/i'`,
+		`Why Hello, Luke!
 `)
 	shouldEqual(t, `cat fixtures/servers.yml | xo '/.*?(production):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/mis'`,
 		`user-1@192.168.1.1 -p 1234
@@ -32,11 +32,11 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldEqual(t, `echo 'abc' | xo '%(\w)(\w)(\w)(\w)?%$1$2$3$4?:$1%'`,
 		`abca
 `)
-	shouldEqual(t, `echo 'Howdy! My name is Woody.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'`,
-		`Howdy, Woody!
+	shouldEqual(t, `echo 'Hello! My name is C3PO, human cyborg relations.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Hello, $3!/i'`,
+		`Hello, C3PO!
 `)
-	shouldEqual(t, `echo 'My name is Jessie.' | xo '|^((\w+)! )?my name is (\w+)|$2?:Hello, $3!|i'`,
-		`Hello, Jessie!
+	shouldEqual(t, `echo 'My name is Chewbacca, uuuuuur ahhhhhrrr uhrrr ahhhrrr aaargh!' | xo '|^((\w+)! )?my name is (\w+)|$2?:Greetings, $3!|i'`,
+		`Greetings, Chewbacca!
 `)
 	shouldEqual(t, `cat fixtures/romans.txt | xo '/\d\s(\w+).*?to all that are in (\w+),.*?24 \[the (grace)? of ([\w\s]{21})/Romans is a letter written by $1 addressed to the people of $2 about the $3?:gospel of $4./mis'`,
 		`Romans is a letter written by Paul addressed to the people of Rome about the grace of our Lord Jesus Christ.
