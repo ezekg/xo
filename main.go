@@ -138,8 +138,10 @@ func split(str string) ([]string, error) {
 		}
 
 		if r == delim {
-			subs = append(subs, buffer.String())
-			buffer = *new(bytes.Buffer)
+			if buffer.Len() > 0 {
+				subs = append(subs, buffer.String())
+				buffer = *new(bytes.Buffer)
+			}
 			continue
 		}
 
