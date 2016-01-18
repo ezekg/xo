@@ -5,11 +5,13 @@ formats the regexp matches.
 package main
 
 import (
+	"bytes"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"regexp"
-	"strings"
+	"unicode/utf8"
 )
 
 func main() {
@@ -23,8 +25,10 @@ func main() {
 		throw("Nothing passed to stdin")
 	}
 
-	delimiter := string(arg[0])
-	parts := compact(strings.Split(arg, delimiter))
+	parts, err := split(arg)
+	if err != nil {
+		throw("Invalid argument string")
+	}
 	if len(parts) <= 1 {
 		throw("No pattern or formatter specified")
 	}
@@ -55,9 +59,7 @@ func main() {
 		throw("No matches found")
 	}
 
-	var (
-		fallbacks = make(map[int]string)
-	)
+	fallbacks := make(map[int]string)
 
 	for _, group := range matches {
 		result := format
@@ -104,6 +106,51 @@ func compact(strs []string) []string {
 	}
 
 	return result
+}
+
+// split slices s into all substrings separated by non-escaped values of the
+// first rune and returns a slice of those substrings.
+// It removes one backslash escape from any escaped delimiters.
+func split(str string) ([]string, error) {
+	if !utf8.ValidString(str) {
+		return nil, errors.New("Invalid string")
+	}
+
+	// Grab the first rune.
+	delim, size := utf8.DecodeRuneInString(str)
+	str = str[size:]
+
+	var (
+		subs   []string
+		buffer bytes.Buffer
+	)
+	for len(str) > 0 {
+		r, size := utf8.DecodeRuneInString(str)
+		str = str[size:]
+
+		if r == '\\' {
+			peek, peekSize := utf8.DecodeRuneInString(str)
+			if peek == delim {
+				buffer.WriteRune(peek)
+				str = str[peekSize:]
+				continue
+			}
+		}
+
+		if r == delim {
+			if buffer.Len() > 0 {
+				subs = append(subs, buffer.String())
+				buffer = *new(bytes.Buffer)
+			}
+			continue
+		}
+
+		buffer.WriteRune(r)
+	}
+	if buffer.Len() > 0 {
+		subs = append(subs, buffer.String())
+	}
+	return subs, nil
 }
 
 // help prints how to use this whole `xo` thing.
