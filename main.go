@@ -59,9 +59,7 @@ func main() {
 		throw("No matches found")
 	}
 
-	var (
-		fallbacks = make(map[int]string)
-	)
+	fallbacks := make(map[int]string)
 
 	for _, group := range matches {
 		result := format
