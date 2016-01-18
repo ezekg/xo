@@ -68,18 +68,18 @@ outer:
 	for test, expected := range tests {
 		actual, err := split(test)
 		if err != nil {
-			t.Logf("Error on split(%q)\n", test)
+			t.Fatalf("failed to split `%q`\n", test)
 			continue
 		}
 
 		if len(actual) != len(expected) {
-			t.Logf("Test: %q. Actual: %v, Expected: %v\n", test, actual, expected)
+			t.Fatalf("`%v` should be `%v` for `%q`\n", actual, expected, test)
 			continue
 		}
 
 		for i := range actual {
 			if actual[i] != expected[i] {
-				t.Logf("Test: %q. Actual: %v, Expected: %v\n", test, actual, expected)
+				t.Fatalf("`%v` should be `%v` for `%q`\n", actual, expected, test)
 				continue outer
 			}
 		}
@@ -89,7 +89,7 @@ outer:
 func execShellCommand(t *testing.T, cmd string) string {
 	out, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
-		t.Fatalf(err.Error())
+		t.Fatalf("error: %s", err.Error())
 	}
 	return string(out)
 }
