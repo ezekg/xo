@@ -140,18 +140,16 @@ value should be simple and can only contain letters, numbers, dashes and undersc
 although, it may contain other indices, in descending order e.g. `$2?:$1`, not `$1?:$2`.
 
 ### Delimiters
-You may substitute `/` for any delimiter.  If it is found within your pattern
-or formatter it must be escaped.  If it would normally be escaped in your
-pattern or formatter it must be escaped again.
+You may substitute `/` for any delimiter. If the delimiter is found within your pattern
+or formatter, it must be escaped. If it would normally be escaped in your pattern
+or formatter, it must be escaped again. For example,
 
-```
+```bash
+# Using the delimiter `|`,
 echo 'Hello! My name is C3PO, human cyborg relations.' | xo '|^(\w+)?! my name is (\w+)|$1, $2!|i'
-# =>
-#  Hello, C3PO!
 
+# Using the delimiter `w`,
 echo 'Hello! My name is C3PO, human cyborg relations.' | xo 'w^(\\w+)?! my name is (\\w+)w$1, $2!wi'
-# =>
-#  Hello, C3PO!
 ```
 
 ### Regular expression features
