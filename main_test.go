@@ -48,6 +48,38 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldExit(t, `xo ///`, 1)
 }
 
+func TestSplit(t *testing.T) {
+	tests := map[string][]string{
+		`%bc%b\%%`:   []string{"bc", "b%"},
+		`⌘abc⌘bca⌘`:  []string{"abc", "bca"},
+		`\bc\bc\`:    []string{"bc", "bc"},
+		`\b\\c\bc\`:  []string{`b\c`, `bc`},
+		`\xy\xy`:     []string{"xy"},
+		`[\[xy[xy[`:  []string{"[xy", "xy"},
+		`[\\[xy[xy[`: []string{`\[xy`, "xy"},
+	}
+outer:
+	for test, expected := range tests {
+		actual, err := split(test)
+		if err != nil {
+			t.Logf("Error on split(%q)\n", test)
+			continue
+		}
+
+		if len(actual) != len(expected) {
+			t.Logf("Test: %q. Actual: %v, Expected: %v\n", test, actual, expected)
+			continue
+		}
+
+		for i := range actual {
+			if actual[i] != expected[i] {
+				t.Logf("Test: %q. Actual: %v, Expected: %v\n", test, actual, expected)
+				continue outer
+			}
+		}
+	}
+}
+
 func execShellCommand(t *testing.T, cmd string) string {
 	out, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
