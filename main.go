@@ -108,7 +108,7 @@ func compact(strs []string) []string {
 	return result
 }
 
-// split slices s into all substrings bookened by non-escaped values of the
+// split slices s into all substrings separated by non-escaped values of the
 // first rune and returns a slice of those substrings.
 // It removes one backslash escape from any escaped delimiters.
 func split(str string) ([]string, error) {
@@ -144,6 +144,9 @@ func split(str string) ([]string, error) {
 		}
 
 		buffer.WriteRune(r)
+	}
+	if buffer.Len() > 0 {
+		subs = append(subs, buffer.String())
 	}
 	return subs, nil
 }

@@ -140,9 +140,19 @@ value should be simple and can only contain letters, numbers, dashes and undersc
 although, it may contain other indices, in descending order e.g. `$2?:$1`, not `$1?:$2`.
 
 ### Delimiters
-You may substitute `/` for any delimiter not found within your pattern or formatter,
-even if it is escaped. Pull requests to allow escaped delimiters are always welcome,
-e.g. `xo /(\/dir)/$1\//i` vs. `xo |(/dir)|$1/|i`.
+You may substitute `/` for any delimiter.  If it is found within your pattern
+or formatter it must be escaped.  If it would normally be escaped in your
+pattern or it must be escaped again.
+
+```
+echo 'Hello! My name is C3PO, human cyborg relations.' | xo '|^(\w+)?! my name is (\w+)|$1, $2!|i'
+# =>
+#  Hello, C3PO!
+
+echo 'Hello! My name is C3PO, human cyborg relations.' | xo 'w^(\\w+)?! my name is (\\w+)w$1, $2!wi'
+# =>
+#  Hello, C3PO!
+```
 
 ### Regular expression features
 Please see [Go's regular expression documentation](https://golang.org/pkg/regexp/syntax/)

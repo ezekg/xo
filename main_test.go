@@ -50,13 +50,14 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 
 func TestSplit(t *testing.T) {
 	tests := map[string][]string{
-		`%bc%b\%%`:   []string{"bc", "b%"},
-		`⌘abc⌘bca⌘`:  []string{"abc", "bca"},
-		`\bc\bc\`:    []string{"bc", "bc"},
-		`\b\\c\bc\`:  []string{`b\c`, `bc`},
-		`\xy\xy`:     []string{"xy"},
-		`[\[xy[xy[`:  []string{"[xy", "xy"},
-		`[\\[xy[xy[`: []string{`\[xy`, "xy"},
+		`%bc%b\%%`:    []string{"bc", "b%"},
+		`⌘abc⌘bca⌘`:   []string{"abc", "bca"},
+		`⌘abc⌘bca⌘\⌘`: []string{"abc", "bca", "⌘"},
+		`\bc\bc\`:     []string{"bc", "bc"},
+		`\b\\c\bc\`:   []string{`b\c`, `bc`},
+		`[\[xy[xy[`:   []string{"[xy", "xy"},
+		`[\\[xy[xy[`:  []string{`\[xy`, "xy"},
+		`[\\[xy[xy[i`: []string{`\[xy`, "xy", "i"},
 	}
 outer:
 	for test, expected := range tests {
