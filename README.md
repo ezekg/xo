@@ -142,7 +142,7 @@ although, it may contain other indices, in descending order e.g. `$2?:$1`, not `
 ### Delimiters
 You may substitute `/` for any delimiter.  If it is found within your pattern
 or formatter it must be escaped.  If it would normally be escaped in your
-pattern or it must be escaped again.
+pattern or formatter it must be escaped again.
 
 ```
 echo 'Hello! My name is C3PO, human cyborg relations.' | xo '|^(\w+)?! my name is (\w+)|$1, $2!|i'
