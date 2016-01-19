@@ -46,9 +46,10 @@ func main() {
 	format = parts[1]
 	if len(parts) > 2 {
 		flags = parts[2]
+		pattern = fmt.Sprintf(`(?%s)%s`, flags, pattern)
 	}
 
-	rx, err := regexp.Compile(fmt.Sprintf(`(?%s)%s`, flags, pattern))
+	rx, err := regexp.Compile(pattern)
 	if err != nil {
 		throw("Invalid regular expression")
 	}
