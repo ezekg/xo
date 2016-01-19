@@ -44,6 +44,7 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldEqual(t, `echo 'hi' | xo '/(hi)/te\/st/mi'`,
 		`te/st
 `)
+	shouldExit(t, `echo 'hi' | xo '/(hi)/te/st/mi'`, 1)
 	shouldExit(t, `echo '1' | xo '/^(\s)/$1/'`, 1)
 	shouldExit(t, `echo '1' | xo '/1/'`, 1)
 	shouldExit(t, `echo '1' | xo ///`, 1)
