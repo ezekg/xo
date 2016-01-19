@@ -95,20 +95,7 @@ func main() {
 	}
 }
 
-// compact removes empty string values from an array of strings.
-func compact(strs []string) []string {
-	var result []string
-
-	for _, str := range strs {
-		if str != "" {
-			result = append(result, str)
-		}
-	}
-
-	return result
-}
-
-// split slices s into all substrings separated by non-escaped values of the
+// split slices str into all substrings separated by non-escaped values of the
 // first rune and returns a slice of those substrings.
 // It removes one backslash escape from any escaped delimiters.
 func split(str string) ([]string, error) {
@@ -153,7 +140,7 @@ func split(str string) ([]string, error) {
 	return subs, nil
 }
 
-// help prints how to use this whole `xo` thing.
+// help prints how to use this whole `xo` thing then gracefully exits.
 func help() {
 	fmt.Printf("%s\n", "Usage: xo '/<pattern>/<formatter>/[flags]'")
 	os.Exit(0)
