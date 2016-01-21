@@ -94,9 +94,9 @@ cat starwars.txt | xo '/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in a 
 #   Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 ```
 
-Okay, okay. Let's move on to something a little more useful. Suppose we had a
-configuration file called `servers.yml` containing some project information.
-Maybe it looks like this,
+Okay, okay. Let's move away from Star Wars references and on to something a little
+more useful. Suppose we had a configuration file called `servers.yml` containing
+some project information. Maybe it looks like this,
 ```yml
 stages:
   production:
