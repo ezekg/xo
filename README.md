@@ -134,6 +134,15 @@ shh production
 #  ssh user-1@192.168.1.1 -p 1234
 ```
 
+Lastly, what about reading sensitive credentials from an ignored configuration
+file to pass to a process, say, `rails s`? Let's use Stripe keys as an example
+of something we might not want to log to our terminal history,
+```bash
+cat secrets/stripe.yml | xo '/test_secret_key:\s([\w]+).*?test_publishable_key:\s([\w]+)/PUBLISHABLE_KEY=$1 SECRET_KEY=$2 rails s/mis' | sh
+```
+
+Pretty cool, huh?
+
 ### Fallback values
 You may specify fallback values for matches using the ternary operator, `$n?:value`,
 where `n` is the index that you want to assign the fallback value to. The fallback
