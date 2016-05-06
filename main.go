@@ -69,7 +69,6 @@ func main() {
 			value := string(match)
 
 			rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:(([-_A-za-z0-9]((\\.)+)?)+)`, i))
-			// rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:([-_$A-za-z1-9]+)`, i))
 			if err != nil {
 				throw("Failed to parse default arguments", err.Error())
 			}
