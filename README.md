@@ -143,14 +143,14 @@ cat secrets/stripe.yml | xo '/test_secret_key:\s([\w]+).*?test_publishable_key:\
 
 Pretty cool, huh?
 
-### Fallback values
+## Fallback values
 You may specify fallback values for matches using the ternary operator, `$i?:value`,
 where `i` is the index that you want to assign the fallback value to. The fallback
-value may contain any character, though anything other than letters, numbers, dashes
-and underscores must be escaped; it may also contain other match group indices if
-they are in descending order e.g. `$2?:$1`, not `$1?:$2`.
+value may contain any sequence of characters, though anything other than letters,
+numbers, dashes and underscores must be escaped; it may also contain other match
+group indices if they are in descending order e.g. `$2?:$1`, not `$1?:$2`.
 
-### Delimiters
+## Delimiters
 You may substitute `/` for any delimiter. If the delimiter is found within your pattern
 or formatter, it must be escaped. If it would normally be escaped in your pattern
 or formatter, it must be escaped again. For example,
@@ -163,6 +163,6 @@ echo 'Hello! My name is C3PO, human cyborg relations.' | xo '|^(\w+)?! my name i
 echo 'Hello! My name is C3PO, human cyborg relations.' | xo 'w^(\\w+)?! my name is (\\w+)w$1, $2!wi'
 ```
 
-### Regular expression features
+## Regular expression features
 Please see [Go's regular expression documentation](https://golang.org/pkg/regexp/syntax/)
 for additional usage options and features.
