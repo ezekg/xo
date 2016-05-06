@@ -74,8 +74,9 @@ func main() {
 			}
 
 			// Remove extraneous escapes. This is done because Go doesn't support
-			// lookbehinds, i.e. `(\$%d)\?:(([-_A-za-z0-9]|(?<=\\).)+)`, so we
-			// have to match escaped fallback characters the another way.
+			// lookbehinds, i.e. `(\$%d)\?:(([-_A-za-z0-9]|(?<=\\).)+)`, so we have
+			// to match escaped fallback characters using the regexp above, which
+			// matches backslashes as well as the escaped character.
 			rxEsc, _ := regexp.Compile(`\\(.)`)
 
 			fallback := rxFallback.FindStringSubmatch(result)
