@@ -144,10 +144,11 @@ cat secrets/stripe.yml | xo '/test_secret_key:\s([\w]+).*?test_publishable_key:\
 Pretty cool, huh?
 
 ### Fallback values
-You may specify fallback values for matches using the ternary operator, `$n?:value`,
-where `n` is the index that you want to assign the fallback value to. The fallback
-value should be simple and can only contain letters, numbers, dashes and underscores;
-although, it may contain other indices, in descending order e.g. `$2?:$1`, not `$1?:$2`.
+You may specify fallback values for matches using the ternary operator, `$i?:value`,
+where `i` is the index that you want to assign the fallback value to. The fallback
+value may contain any character, though anything other than letters, numbers, dashes
+and underscores must be escaped; it may also contain other match group indices if
+they are in descending order e.g. `$2?:$1`, not `$1?:$2`.
 
 ### Delimiters
 You may substitute `/` for any delimiter. If the delimiter is found within your pattern
