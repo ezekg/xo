@@ -44,6 +44,18 @@ Luke said, "No. No! That's not true! That's impossible!" in a shocked voice.
 	shouldEqual(t, `echo 'hi' | xo '/(hi)/te\/st/mi'`,
 		`te/st
 `)
+	shouldEqual(t, `echo 'a match' | xo '/^(a match)?/$1?:no\ match found/'`,
+		`a match found
+`)
+	shouldEqual(t, `echo 'no match' | xo '/^(a match)?/$1?:no\ match found/'`,
+		`no match found
+`)
+	shouldEqual(t, `echo 'testing... 1, 2, 3' | xo '/^(testing)?/$1?:some\ \#\$\%\$fallback/'`,
+		`testing
+`)
+	shouldEqual(t, `echo 'testing... 1, 2, 3' | xo '/^(testing)?/$1?:some\ #$%$fallback/'`,
+		`testing#$%$fallback
+`)
 	shouldExit(t, `echo 'hi' | xo '/(hi)/te/st/mi'`, 1)
 	shouldExit(t, `echo '1' | xo '/^(\s)/$1/'`, 1)
 	shouldExit(t, `echo '1' | xo '/1/'`, 1)

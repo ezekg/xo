@@ -68,16 +68,22 @@ func main() {
 		for i, match := range group {
 			value := string(match)
 
-			rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:([-_$A-za-z1-9]+)`, i))
+			rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:(([-_A-za-z0-9]((\\.)+)?)+)`, i))
+			// rxFallback, err := regexp.Compile(fmt.Sprintf(`(\$%d)\?:([-_$A-za-z1-9]+)`, i))
 			if err != nil {
-				throw("Failed to parse default arguments")
+				throw("Failed to parse default arguments", err.Error())
 			}
+
+			// Remove extraneous escapes. This is done because Go doesn't support
+			// lookbehinds, i.e. `(\$%d)\?:(([-_A-za-z0-9]|(?<=\\).)+)`, so we
+			// have to match escaped fallback characters the another way.
+			rxEsc, _ := regexp.Compile(`\\(.)`)
 
 			fallback := rxFallback.FindStringSubmatch(result)
 			if len(fallback) > 1 {
 				// Store fallback values if key does not already exist
 				if _, ok := fallbacks[i]; !ok {
-					fallbacks[i] = string(fallback[2])
+					fallbacks[i] = rxEsc.ReplaceAllString(string(fallback[2]), "$1")
 				}
 				result = rxFallback.ReplaceAllString(result, "$1")
 			}
