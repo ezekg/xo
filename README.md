@@ -16,9 +16,10 @@ echo 'Hello! My name is C3PO, human cyborg relations.' | xo '/^(\w+)! my name is
 
 You may find yourself using `xo` to format logs into something a bit more human-readable,
 compose together command output into a new command, or even normalize some data using
-[fallback values](#fallback-values). As an added bonus, `xo` comes with the full power of
+[fallback values](#fallback-values). `xo` also comes with the full power of
 [Go's regular expression syntax](https://golang.org/pkg/regexp/syntax/); meaning
-it can handle multi-line patterns and any other flag you can throw at it.
+it can handle multi-line patterns (something `sed` doesn't do very well!), as well
+as any other flag you want to throw at it.
 
 ## Installation
 To install `xo`, please use `go get`. If you don't have Go installed, [get it here](https://golang.org/dl/).
