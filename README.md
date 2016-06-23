@@ -72,11 +72,11 @@ With that, what if the input string _forgot_ to specify a greeting, but we, desi
 to be polite, still wanted to say "Hello"? Well, that sounds like a great job for
 a [fallback value](#fallback-values)! Let's update the example a little bit,
 ```bash
-echo 'Hello! My name is C3PO.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Greetings, $3!/i'
+echo 'Hello! My name is C3PO.' | xo '/^(?:(\w+)! )?my name is (\w+)/$1?:Greetings, $2!/i'
 # =>
 #  Hello, C3PO!
 
-echo 'My name is Chewbacca, uuuuuur ahhhhhrrr uhrrr ahhhrrr aaargh.' | xo '/^((\w+)! )?my name is (\w+)/$2?:Greetings, $3!/i'
+echo 'My name is Chewbacca, uuuuuur ahhhhhrrr uhrrr ahhhrrr aaargh.' | xo '/^(?:(\w+)! )?my name is (\w+)/$1?:Greetings, $2!/i'
 # =>
 #  Greetings, Chewbacca!
 ```
