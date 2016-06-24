@@ -82,8 +82,13 @@ echo 'My name is Chewbacca, uuuuuur ahhhhhrrr uhrrr ahhhrrr aaargh.' | xo '/^(?:
 ```
 
 As you can see, we've taken the matches and created a new string out of them. We
-also supplied a [fallback value](#fallback-values) for the second match (`$2`)
+also supplied a [fallback value](#fallback-values) for the first match (`$1`)
 that gets used if no match is found, using the ternary `?:` operator.
+
+(The `?:` inside of the regex pattern is called a _non-capturing group_, which is
+different from the ternary `?:` operator in the formatter; a non-capturing group
+allows you to create optional character groups without capturing them into
+a match `$i` variable.)
 
 Now that we have the basics of `xo` out of the way, let's pick up the pace a little
 bit. Suppose we had a text file called `starwars.txt` containing some Star Wars quotes,
