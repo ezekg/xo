@@ -2,11 +2,6 @@
 [![Travis](https://img.shields.io/travis/ezekg/xo.svg?style=flat-square)](https://travis-ci.org/ezekg/xo)
 
 `xo` is a command line utility that composes regular expression match groups.
-What differentiates `xo` from tools like `sed` and `awk` is that `xo` is designed
-to do a single job well, and that is compose together match groups into a new
-string. `xo` is not meant to handle things that `sed` and `awk` are already
-good at; namely, search and replace. It simply performs one of the few things
-those tools cannot accomplish intuitively. For example,
 
 ```bash
 echo 'Hello! My name is C3PO, human cyborg relations.' | xo '/^(\w+)! my name is (\w+)/$1, $2!/i'
@@ -16,10 +11,10 @@ echo 'Hello! My name is C3PO, human cyborg relations.' | xo '/^(\w+)! my name is
 
 You may find yourself using `xo` to format logs into something a bit more human-readable,
 compose together command output into a new command, or even normalize some data using
-[fallback values](#fallback-values). `xo` also comes with the full power of
-[Go's regular expression syntax](https://golang.org/pkg/regexp/syntax/); meaning
-it can handle multi-line patterns (something `sed` doesn't do very well!), as well
-as any other flag you want to throw at it.
+[fallback values](#fallback-values).
+
+`xo` comes with the full power of [Go's regular expression syntax](https://golang.org/pkg/regexp/syntax/).
+Meaning, it can handle multi-line patterns, as well as any flag you want to throw at it.
 
 ## Installation
 To install `xo`, please use `go get`. If you don't have Go installed, [get it here](https://golang.org/dl/).
@@ -101,7 +96,7 @@ Luke: [shocked] No. No! That's not true! That's impossible!
 
 and we wanted to do a little formatting, as if we're telling it as a story. Easy!
 ```bash
-cat starwars.txt | xo '/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in a $3?:normal voice./mi'
+xo '/^(\w+):(\s*\[(.*?)\]\s*)?\s*([^\n]+)/$1 said, "$4" in a $3?:normal voice./mi' < starwars.txt
 # =>
 #   Vader said, "If only you knew the power of the Dark Side. Obi-Wan never told you what happened to your father." in a normal voice.
 #   Luke said, "He told me enough! He told me you killed him!" in a normal voice.
@@ -127,12 +122,12 @@ worked on. Our day to day requires us to SSH into these projects a lot, and havi
 to read the config file for the IP address of the server, the SSH user, as well as
 any potential port number gets pretty repetitive. Let's automate!
 ```bash
-cat servers.yml | xo '/.*?(production):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/mis'
+xo '/.*?(production):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/mis' < servers.yml
 # =>
 #  user-1@192.168.1.1 -p 1234
 
 # Now let's actually use the output,
-ssh $(cat servers.yml | xo '/.*?(staging):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/mis')
+ssh $(xo '/.*?(staging):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/$4@$2 -p $3?:22/mis' < servers.yml)
 # =>
 #  ssh user-2@192.168.1.1 -p 22
 ```
@@ -140,7 +135,7 @@ ssh $(cat servers.yml | xo '/.*?(staging):\s*server:\s+([^:\n]+):?(\d+)?.*?user:
 Set that up as a nice `~/.bashrc` function, and then you're good to go:
 ```bash
 function shh() {
-  ssh $(cat servers.yml | xo "/.*?($1):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/\$4@\$2 -p \$3?:22/mis")
+  ssh $(xo "/.*?($1):\s*server:\s+([^:\n]+):?(\d+)?.*?user:\s+([^\n]+).*/\$4@\$2 -p \$3?:22/mis" < servers.yml)
 }
 
 # And then we can use it like,
@@ -153,7 +148,7 @@ Lastly, what about reading sensitive credentials from an ignored configuration
 file to pass to a process, say, `rails s`? Let's use Stripe keys as an example
 of something we might not want to log to our terminal history,
 ```bash
-cat secrets/stripe.yml | xo '/test_secret_key:\s([\w]+).*?test_publishable_key:\s([\w]+)/PUBLISHABLE_KEY=$1 SECRET_KEY=$2 rails s/mis' | sh
+cat secrets/*.yml | xo '/test_secret_key:\s([\w]+).*?test_publishable_key:\s([\w]+)/PUBLISHABLE_KEY=$1 SECRET_KEY=$2 rails s/mis' | sh
 ```
 
 Pretty cool, huh?
