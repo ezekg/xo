@@ -78,10 +78,10 @@ echo 'My name is Chewbacca, uuuuuur ahhhhhrrr uhrrr ahhhrrr aaargh.' | xo '/^(?:
 
 As you can see, we've taken the matches and created a new string out of them. We
 also supplied a [fallback value](#fallback-values) for the first match (`$1`)
-that gets used if no match is found, using the ternary `?:` operator.
+that gets used if no match is found, using the elvis `?:` operator.
 
 (The `?:` inside of the regex pattern is called a _non-capturing group_, which is
-different from the ternary `?:` operator in the formatter; a non-capturing group
+different from the elvis `?:` operator in the formatter; a non-capturing group
 allows you to create optional character groups without capturing them into
 a match `$i` variable.)
 
@@ -154,7 +154,7 @@ cat secrets/*.yml | xo '/test_secret_key:\s([\w]+).*?test_publishable_key:\s([\w
 Pretty cool, huh?
 
 ## Fallback values
-You may specify fallback values for matches using the ternary operator, `$i?:value`,
+You may specify fallback values for matches using the elvis operator, `$i?:value`,
 where `i` is the index that you want to assign the fallback value to. The fallback
 value may contain any sequence of characters, though anything other than letters,
 numbers, dashes and underscores must be escaped; it may also contain other match
